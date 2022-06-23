@@ -43,7 +43,7 @@ export const ReadPrettyRecordPicker: React.FC = observer((props: any) => {
               {compile(record?.[fieldNames?.label || 'label'])}
             </a>
           </span>
-          {index < arr.length - 1 ? <span style={{ marginRight: 4, color: '#aaa' }}>, </span> : null}
+          {index < arr.length - 1 ? <span style={{ marginRight: 4, color: '#333' }}>, </span> : null}
         </>
       );
     });
