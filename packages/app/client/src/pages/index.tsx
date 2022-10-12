@@ -1,4 +1,5 @@
 import { Application } from '@nocobase/client';
+import { CustomSignupPageProvider } from '../plugins/custom-signup-page';
 
 export const app = new Application({
   apiClient: {
@@ -11,5 +12,7 @@ export const app = new Application({
     require('@nocobase/plugin-workflow/client').default,
   ],
 });
+
+app.use(CustomSignupPageProvider);
 
 export default app.render();
