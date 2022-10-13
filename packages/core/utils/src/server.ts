@@ -1,4 +1,5 @@
 export * from './date';
+export * from './getFormulaParser';
 export * from './merge';
 export * from './mixin';
 export * from './mixin/AsyncEmitter';
