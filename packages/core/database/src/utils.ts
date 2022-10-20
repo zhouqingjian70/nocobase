@@ -1,17 +1,16 @@
 import crypto from 'crypto';
 import { Model } from './model';
+import { IdentifierError } from './errors/identifier-error';
 
 type HandleAppendsQueryOptions = {
   templateModel: any;
   queryPromises: Array<any>;
 };
 
-export function md5(value: string) {
-  return crypto.createHash('md5').update(value).digest('hex');
-}
-
 export async function handleAppendsQuery(options: HandleAppendsQueryOptions) {
   const { templateModel, queryPromises } = options;
+
+  const primaryKey = templateModel.constructor.primaryKeyAttribute;
 
   const results = await Promise.all(queryPromises);
 
@@ -38,12 +37,35 @@ export async function handleAppendsQuery(options: HandleAppendsQueryOptions) {
     }
 
     for (let i = 0; i < appendedResult.rows.length; i++) {
+      const appendingRow = appendedResult.rows[i];
       const key = appendedResult.include.association;
-      const val = appendedResult.rows[i].get(key);
+      const val = appendingRow.get(key);
 
-      rows[i].set(key, val);
+      const rowKey = appendingRow.get(primaryKey);
+
+      const targetIndex = rows.findIndex((row) => row.get(primaryKey) === rowKey);
+
+      if (targetIndex === -1) {
+        throw new Error('target row not found');
+      }
+
+      rows[targetIndex].set(key, val, {
+        raw: true,
+      });
     }
   }
 
   return rows;
+}
+
+export function md5(value: string) {
+  return crypto.createHash('md5').update(value).digest('hex');
+}
+
+const MAX_IDENTIFIER_LENGTH = 63;
+
+export function checkIdentifier(value: string) {
+  if (value.length > MAX_IDENTIFIER_LENGTH) {
+    throw new IdentifierError(`Identifier ${value} is too long`);
+  }
 }

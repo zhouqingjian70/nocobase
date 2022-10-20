@@ -1,16 +1,16 @@
 import { css } from '@emotion/css';
-import lessStyle from './style.less';
 import { ISchema, observer } from '@formily/react';
 import { Button, Dropdown, Menu, Switch } from 'antd';
 import classNames from 'classnames';
 import React, { createContext, useContext, useState } from 'react';
 import { Icon } from '../icon';
 import { useCompile, useDesignable } from '../schema-component/hooks';
+import './style.less';
 import {
   SchemaInitializerButtonProps,
   SchemaInitializerItemComponent,
   SchemaInitializerItemOptions,
-  SchemaInitializerItemProps,
+  SchemaInitializerItemProps
 } from './types';
 
 const defaultWrap = (s: ISchema) => s;
@@ -18,6 +18,8 @@ const defaultWrap = (s: ISchema) => s;
 export const SchemaInitializerItemContext = createContext(null);
 
 export const SchemaInitializer = () => null;
+
+const menuItemGroupCss = 'nb-menu-item-group';
 
 SchemaInitializer.Button = observer((props: SchemaInitializerButtonProps) => {
   const {
@@ -88,7 +90,7 @@ SchemaInitializer.Button = observer((props: SchemaInitializerButtonProps) => {
             <Menu.SubMenu
               key={item.key || `item-group-${indexA}`}
               title={compile(item.title)}
-              popupClassName={lessStyle.menuItemGroup}
+              popupClassName={menuItemGroupCss}
             >
               {renderItems(item.children)}
             </Menu.SubMenu>
@@ -163,7 +165,7 @@ SchemaInitializer.Item = (props: SchemaInitializerItemProps) => {
               eventKey={item.key || `item-group-${indexA}`}
               key={item.key || `item-group-${indexA}`}
               title={compile(item.title)}
-              className={lessStyle.menuItemGroup}
+              className={menuItemGroupCss}
             >
               {renderMenuItem(item.children)}
             </Menu.ItemGroup>
