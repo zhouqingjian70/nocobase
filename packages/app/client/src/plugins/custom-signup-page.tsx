@@ -3,7 +3,11 @@ import { RouteSwitchContext, SignupPage, useSignup } from '@nocobase/client';
 import React, { useContext } from 'react';
 
 const useCustomSignup = () => {
-  const { run } = useSignup();
+  const { run } = useSignup({
+    message: {
+      success: '自定义提示'
+    },
+  });
   const form = useForm();
   return {
     async run() {
