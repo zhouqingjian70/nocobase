@@ -103,7 +103,7 @@ export default {
     },
     {
       title: 'UI design resources',
-      'title.zh-CN': '界面设计组件库',
+      'title.zh-CN': '界面设计资源',
       type: 'group',
       children: [
         '/user-manual/ui-design-resources/index',
