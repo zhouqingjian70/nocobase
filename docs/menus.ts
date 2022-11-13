@@ -44,10 +44,7 @@ export default {
       title: 'Release',
       'title.zh-CN': '版本发布',
       type: 'group',
-      children: [
-        '/welcome/release/index',
-        '/welcome/release/v08-changelog',
-      ],
+      children: ['/welcome/release/index', '/welcome/release/v08-changelog'],
     },
     {
       title: 'Community',
@@ -143,9 +140,7 @@ export default {
       title: 'Blocks Guide',
       'title.zh-CN': '区块指南',
       type: 'group',
-      children: [
-        '/manual/blocks-guide/charts',
-      ],
+      children: ['/manual/blocks-guide/charts'],
     },
   ],
   '/development': [
@@ -226,10 +221,7 @@ export default {
     {
       title: 'HTTP API',
       type: 'subMenu',
-      children: [
-        '/api/http/index',
-        '/api/http/rest-api',
-      ],
+      children: ['/api/http/index', '/api/http/rest-api'],
     },
     {
       title: '@nocobase/server',
