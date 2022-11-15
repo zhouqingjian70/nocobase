@@ -11,6 +11,9 @@
     "baseUrl": "./",
     "strict": true,
     "paths": {
+      "@my-nocobase/plugin-*/client": [
+        "../../my-nocobase/plugins/*/src/client"
+      ],
       "@nocobase/plugin-sample-*/client": ["../../samples/*/src/client"],
       "@nocobase/plugin-pro-*/client": ["../../pro-plugins/*/src/client"],
       "@nocobase/plugin-*/client": ["../../plugins/*/src/client"],
