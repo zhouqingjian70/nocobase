@@ -1,4 +1,3 @@
-import UsersPlugin from '@nocobase/plugin-users';
 import { InstallOptions, Plugin } from '@nocobase/server';
 import { resolve } from 'path';
 import { namespace } from '..';
@@ -21,7 +20,7 @@ export class OidcPlugin extends Plugin {
     });
 
     // 获取 User 插件
-    const userPlugin = this.app.getPlugin('users') as UsersPlugin;
+    const userPlugin = this.app.getPlugin<any>('users');
 
     // 注册 OIDC 验证器
     userPlugin.authenticators.register('oidc', oidc);
