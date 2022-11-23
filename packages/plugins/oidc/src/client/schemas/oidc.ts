@@ -1,5 +1,4 @@
 import { ISchema } from '@formily/react';
-import { uid } from '@formily/shared';
 import { useActionContext, useRequest } from '@nocobase/client';
 import { IDTOKEN_SIGN_ALG } from '../../server/shared/types';
 
@@ -47,7 +46,7 @@ const collection = {
         title: '{{t("Issuer")}}',
         type: 'string',
         'x-component': 'Input',
-        required: true,
+        // required: true,
       } as ISchema,
     },
     {
@@ -58,7 +57,7 @@ const collection = {
         title: '{{t("Openid configuration")}}',
         type: 'string',
         'x-component': 'Input',
-        required: true,
+        // required: true,
       } as ISchema,
     },
     {
@@ -91,7 +90,7 @@ const collection = {
         title: '{{t("JWKS endpoint")}}',
         type: 'string',
         'x-component': 'Input',
-        required: true,
+        // required: true,
       } as ISchema,
     },
     {
@@ -113,7 +112,7 @@ const collection = {
         title: '{{t("Logout endpoint")}}',
         type: 'string',
         'x-component': 'Input',
-        required: true,
+        // required: true,
       } as ISchema,
     },
     {
