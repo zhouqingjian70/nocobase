@@ -6,8 +6,6 @@ on:
       - 'main'
       - 'develop'
       - 'cr/**'
-    paths:
-      - 'packages/**'
   pull_request:
     branches:
       - '**'
