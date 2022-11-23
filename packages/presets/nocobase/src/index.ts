@@ -19,6 +19,7 @@ export class PresetNocoBase extends Plugin {
       'export',
       'import',
       'audit-logs',
+      'oidc',
     ];
     await this.app.pm.add(plugins, {
       enabled: true,
