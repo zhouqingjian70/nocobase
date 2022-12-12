@@ -1,4 +1,5 @@
 import { FormOutlined } from '@ant-design/icons';
+import { createForm } from '@formily/core';
 import { ISchema } from '@formily/react';
 import { uid } from '@formily/shared';
 import { SchemaInitializer } from '@nocobase/client';
@@ -18,6 +19,22 @@ export const gridRowColWrap = (schema: ISchema) => {
         },
       },
     },
+  };
+};
+
+export const useSnapshotFormBlockProps = () => {
+  const form = React.useMemo(
+    () =>
+      createForm({
+        readPretty: true,
+        initialValues: {
+          id: 1111,
+        },
+      }),
+    [],
+  );
+  return {
+    form,
   };
 };
 

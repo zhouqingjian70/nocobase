@@ -1,28 +1,12 @@
-import { createForm } from '@formily/core';
 import {
-  CollectionManagerContext, registerField,
+  CollectionManagerContext,
+  registerField,
   SchemaComponentOptions,
   SchemaInitializerContext
 } from '@nocobase/client';
 import React, { useContext } from 'react';
-import { CustomField, SnapshotBlockInitializers, SnapshotBlockProvider } from './components';
+import { CustomField, SnapshotBlockInitializers, SnapshotBlockProvider, useSnapshotFormBlockProps } from './components';
 import { customField } from './customField';
-
-const useSnapshotFormBlockProps = () => {
-  const form = React.useMemo(
-    () =>
-      createForm({
-        readPretty: true,
-        initialValues: {
-          id: 1111,
-        },
-      }),
-    [],
-  );
-  return {
-    form,
-  };
-};
 
 registerField(customField.group, 'customField', customField);
 
