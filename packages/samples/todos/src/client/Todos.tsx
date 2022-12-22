@@ -56,6 +56,23 @@ const useCloseAction = () => {
   };
 };
 
+const SchemaComponentRefreshProvider = (props) => {
+  const ctx = useSchemaComponentContext();
+  return (
+    <SchemaComponentContext.Provider
+      value={{
+        ...ctx,
+        refresh: () => {
+          ctx.refresh();
+          props?.onRefresh?.();
+        },
+      }}
+    >
+      {props.children}
+    </SchemaComponentContext.Provider>
+  );
+};
+
 const Hello = () => {
   const schema = new Schema({
     properties: {
@@ -70,18 +87,14 @@ const Hello = () => {
   const ctx = useSchemaComponentContext();
   return (
     <div onClick={() => {}}>
-      <SchemaComponentContext.Provider
-        value={{
-          ...ctx,
-          refresh: () => {
-            ctx.refresh();
-            console.log('changed:', schema.toJSON());
-          },
+      <SchemaComponentRefreshProvider
+        onRefresh={() => {
+          console.log('changed:', schema.toJSON());
         }}
       >
         {/* <RemoteSchemaComponent uid={'mcg9plxk8wi'} /> */}
         <SchemaComponent memoized schema={schema} />
-      </SchemaComponentContext.Provider>
+      </SchemaComponentRefreshProvider>
     </div>
   );
 };
