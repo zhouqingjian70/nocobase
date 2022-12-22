@@ -1,5 +1,11 @@
 import { ISchema, observer, Schema } from '@formily/react';
-import { ActionContext, SchemaComponent, useActionContext } from '@nocobase/client';
+import {
+  ActionContext,
+  SchemaComponent,
+  SchemaComponentContext,
+  useActionContext,
+  useSchemaComponentContext
+} from '@nocobase/client';
 import React from 'react';
 import { TodosDesigner } from './TodosDesigner';
 
@@ -61,10 +67,21 @@ const Hello = () => {
       },
     },
   });
+  const ctx = useSchemaComponentContext();
   return (
-    <div>
-      {/* <RemoteSchemaComponent uid={'mcg9plxk8wi'} /> */}
-      <SchemaComponent memoized schema={schema} />
+    <div onClick={() => {}}>
+      <SchemaComponentContext.Provider
+        value={{
+          ...ctx,
+          refresh: () => {
+            ctx.refresh();
+            console.log('changed:', schema.toJSON());
+          },
+        }}
+      >
+        {/* <RemoteSchemaComponent uid={'mcg9plxk8wi'} /> */}
+        <SchemaComponent memoized schema={schema} />
+      </SchemaComponentContext.Provider>
     </div>
   );
 };

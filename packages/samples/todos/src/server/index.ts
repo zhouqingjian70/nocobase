@@ -8,7 +8,7 @@ export default class extends Plugin {
     await this.db.import({
       directory: path.resolve(__dirname, 'collections'),
     });
-    this.app.acl.skip('sample_nodes', '*');
+    this.app.acl.allow('sample_nodes', '*');
   }
 
   async install(options?: any) {
