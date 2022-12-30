@@ -28,7 +28,7 @@ export const TodosBlockInitializer = (props) => {
           },
         });
       }}
-      title={t('Todos')}
+      title={t('Workflow todo list')}
     />
   );
 };

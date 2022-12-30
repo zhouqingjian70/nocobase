@@ -12,7 +12,7 @@ import {
   useAPIClient,
   useDesignable,
   useRecord,
-  WithoutTableFieldResource,
+  WithoutTableFieldResource
 } from '../';
 import { CollectionProvider, useCollection, useCollectionManager } from '../collection-manager';
 import { useRecordIndex } from '../record-provider';
@@ -20,7 +20,7 @@ import { SharedFilterProvider } from './SharedFilterProvider';
 
 export const BlockResourceContext = createContext(null);
 export const BlockAssociationContext = createContext(null);
-const BlockRequestContext = createContext<any>(null);
+const BlockRequestContext = createContext<any>({});
 
 export const useBlockResource = () => {
   return useContext(BlockResourceContext);

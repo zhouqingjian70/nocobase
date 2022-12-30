@@ -26,11 +26,31 @@ export const TodosViewInitializers = (props: any) => {
     <SchemaInitializer.Button
       insertPosition={insertPosition}
       wrap={gridRowColWrap}
+      icon={'PlusOutlined'}
       items={[
         {
           type: 'itemGroup',
-          title: t('Enable actions'),
-          children: [],
+          title: t('Data blocks'),
+          children: [
+            {
+              key: 'markdown1',
+              type: 'item',
+              title: '{{t("Trigger record")}}',
+              component: 'MarkdownBlockInitializer',
+            },
+            {
+              key: 'markdown2',
+              type: 'item',
+              title: '{{t("Node #1")}}',
+              component: 'MarkdownBlockInitializer',
+            },
+            {
+              key: 'markdown3',
+              type: 'item',
+              title: '{{t("Node #2")}}',
+              component: 'MarkdownBlockInitializer',
+            },
+          ],
         },
         {
           type: 'divider',
@@ -41,7 +61,13 @@ export const TodosViewInitializers = (props: any) => {
           title: '{{t("Other blocks")}}',
           children: [
             {
-              key: 'markdown',
+              key: 'markdown5',
+              type: 'item',
+              title: '{{t("Custom form")}}',
+              component: 'MarkdownBlockInitializer',
+            },
+            {
+              key: 'markdown6',
               type: 'item',
               title: '{{t("Markdown")}}',
               component: 'MarkdownBlockInitializer',
@@ -49,9 +75,8 @@ export const TodosViewInitializers = (props: any) => {
           ],
         },
       ]}
-      title={'Add block'}
       component={component}
-      title={component ? null : t('Add block')}
+      title={component ? undefined : t('Add block')}
     />
   );
 };
