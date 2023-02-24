@@ -155,17 +155,16 @@ export default class UsersPlugin extends Plugin<UserPluginConfig> {
   async install(options) {
     const { rootNickname, rootPassword, rootEmail } = this.getInstallingData(options);
     const User = this.db.getCollection('users');
-    if (await User.repository.findOne({ filter: { email: rootEmail } })) {
-      return;
-    }
 
-    const user = await User.repository.create({
-      values: {
-        email: rootEmail,
-        password: rootPassword,
-        nickname: rootNickname,
-      },
-    });
+    if (!(await User.repository.findOne({ filter: { email: rootEmail } }))) {
+      await User.repository.create({
+        values: {
+          email: rootEmail,
+          password: rootPassword,
+          nickname: rootNickname,
+        },
+      });
+    }
 
     const repo = this.db.getRepository<any>('collections');
     if (repo) {

@@ -460,9 +460,11 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   async destroy(options: any = {}) {
+    this.log.info(`start destroy ${this.name} application`);
     await this.emitAsync('beforeDestroy', this, options);
     await this.stop(options);
     await this.emitAsync('afterDestroy', this, options);
+    this.log.info(`${this.name} application destroyed`);
   }
 
   async dbVersionCheck(options?: { exit?: boolean }) {
@@ -501,7 +503,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   }
 
   async install(options: InstallOptions = {}) {
-    console.log('Database dialect: ' + this.db.sequelize.getDialect());
+    this.log.info(`Start to install ${this.name} application, dialect: ${this.db.sequelize.getDialect()}`);
 
     if (options?.clean || options?.sync?.force) {
       console.log('Truncate database and reload app configuration');
