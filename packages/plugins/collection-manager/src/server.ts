@@ -255,7 +255,7 @@ export class CollectionManagerPlugin extends Plugin {
     this.app.resourcer.use(async (ctx, next) => {
       if (ctx.action.resourceName === 'collections.fields' && ['create', 'update'].includes(ctx.action.actionName)) {
         ctx.action.mergeParams({
-          updateAssociationValues: ['uiSchema', 'reverseField'],
+          updateAssociationValues: ['reverseField'],
         });
       }
       await next();
