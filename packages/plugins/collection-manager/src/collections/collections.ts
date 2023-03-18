@@ -63,5 +63,15 @@ export default {
       sortBy: 'sort',
       through: 'collectionCategory',
     },
+    {
+      type: 'belongsToMany',
+      name: 'blacklist',
+      through: 'appCollectionBlacklist',
+      target: 'applications',
+      sourceKey: 'name',
+      targetKey: 'name',
+      otherKey: 'applicationName',
+      foreignKey: 'collectionName',
+    },
   ],
 } as CollectionOptions;

@@ -41,5 +41,15 @@ export default defineCollection({
       type: 'json',
       name: 'options',
     },
+    {
+      type: 'belongsToMany',
+      name: 'collectionBlacklist',
+      through: 'appCollectionBlacklist',
+      target: 'collections',
+      targetKey: 'name',
+      otherKey: 'collectionName',
+      sourceKey: 'name',
+      foreignKey: 'applicationName',
+    },
   ],
 });
