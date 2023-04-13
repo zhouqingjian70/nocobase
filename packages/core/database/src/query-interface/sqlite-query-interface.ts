@@ -58,13 +58,20 @@ export default class SqliteQueryInterface extends QueryInterface {
       const columns = ast.columns;
 
       const results = [];
+
       for (const column of columns) {
         if (column.expr.type === 'column_ref') {
+          let tableName = column.expr.table;
+
+          if (!tableName && ast.from.length == 1) {
+            tableName = ast.from[0].table;
+          }
+
           results.push([
             column.as || column.expr.column,
             {
               column_name: column.expr.column,
-              table_name: column.expr.table,
+              table_name: tableName,
             },
           ]);
         }

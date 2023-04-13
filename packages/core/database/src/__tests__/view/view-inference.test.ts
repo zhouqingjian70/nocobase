@@ -1,5 +1,6 @@
 import { Database, mockDatabase } from '@nocobase/database';
 import { ViewFieldInference } from '../../view/view-inference';
+import { uid } from '@nocobase/utils';
 
 describe('view inference', function () {
   let db: Database;
@@ -8,11 +9,52 @@ describe('view inference', function () {
     db = mockDatabase({
       tablePrefix: '',
     });
+
     await db.clean({ drop: true });
   });
 
   afterEach(async () => {
     await db.close();
+  });
+
+  it('should infer field with cast', async () => {
+    const TestCollection = db.collection({
+      name: 'tests',
+      fields: [
+        {
+          name: 'sales_name',
+          type: 'string',
+        },
+        {
+          name: 'money',
+          type: 'double',
+        },
+        {
+          name: 'progress',
+          type: 'float',
+        },
+      ],
+    });
+
+    await db.sync();
+
+    const viewName = `v_${uid()}`;
+    const dropViewSQL = `DROP VIEW IF EXISTS ${viewName}`;
+    await db.sequelize.query(dropViewSQL);
+
+    const viewSQL = `
+          CREATE VIEW ${viewName} as SELECT sales_name, progress,'2023-01-01' AS start_time,'2023-04-05' as stop_time FROM ${TestCollection.model.tableName}
+          `;
+
+    await db.sequelize.query(viewSQL);
+
+    const inferredFields = await ViewFieldInference.inferFields({
+      db,
+      viewName,
+      viewSchema: db.inDialect('postgres') ? 'public' : undefined,
+    });
+
+    expect(inferredFields['progress'].type).toBe('float');
   });
 
   it('should infer field with alias', async () => {

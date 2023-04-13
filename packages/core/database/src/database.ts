@@ -67,7 +67,7 @@ import { registerBuiltInListeners } from './listeners';
 import { BaseValueParser, registerFieldValueParsers } from './value-parsers';
 import buildQueryInterface from './query-interface/query-interface-builder';
 import QueryInterface from './query-interface/query-interface';
-import { Logger } from '@nocobase/logger';
+import { createLogger, Logger } from '@nocobase/logger';
 import { CollectionGroupManager } from './collection-group-manager';
 import { ViewCollection } from './view-collection';
 
@@ -185,7 +185,7 @@ export class Database extends EventEmitter implements AsyncEmitter {
 
   delayCollectionExtend = new Map<string, { collectionOptions: CollectionOptions; mergeOptions?: any }[]>();
 
-  logger: Logger;
+  _logger: Logger;
 
   collectionGroupManager = new CollectionGroupManager(this);
 
@@ -295,7 +295,15 @@ export class Database extends EventEmitter implements AsyncEmitter {
   }
 
   setLogger(logger: Logger) {
-    this.logger = logger;
+    this._logger = logger;
+  }
+
+  get logger() {
+    if (!this._logger) {
+      this._logger = createLogger();
+    }
+
+    return this._logger;
   }
 
   sequelizeOptions(options) {

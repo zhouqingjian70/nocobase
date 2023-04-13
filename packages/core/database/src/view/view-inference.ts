@@ -35,7 +35,7 @@ export class ViewFieldInference {
       Object.entries(columns).map(([name, column]) => {
         const usage = columnUsage[name];
 
-        if (usage) {
+        if (usage && usage.table_name) {
           const collectionField = (() => {
             const tableName = `${usage.table_schema ? `${usage.table_schema}.` : ''}${usage.table_name}`;
             const collection = db.tableNameCollectionMap.get(tableName);
@@ -91,6 +91,12 @@ export class ViewFieldInference {
 
     const queryType = options.type.toLowerCase().replace(/\(\d+\)/, '');
     const mappedType = fieldTypeMap[queryType];
+
+    if (!mappedType) {
+      return {
+        possibleTypes: Object.keys(fieldTypeMap),
+      };
+    }
 
     if (isArray(mappedType)) {
       return {

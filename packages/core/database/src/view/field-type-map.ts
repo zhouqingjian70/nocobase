@@ -27,7 +27,7 @@ const mysql = {
   integer: 'integer',
   bigint: 'bigInt',
   float: 'float',
-  double: 'float',
+  double: 'double',
   boolean: 'boolean',
 
   tinyint: 'integer',
@@ -42,6 +42,8 @@ const sqlite = {
 
   integer: 'integer',
   real: 'real',
+  float: 'float',
+  double: 'double',
 
   datetime: 'date',
   date: 'date',
