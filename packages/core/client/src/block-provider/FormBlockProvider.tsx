@@ -65,11 +65,23 @@ export const useIsEmptyRecord = () => {
 
 export const FormBlockProvider = (props) => {
   const record = useRecord();
-  const { collection } = props;
+  const { collection, assocFieldRecord } = props;
   const { __collection } = record;
   const currentCollection = useCollection();
   const { designable } = useDesignable();
   const isEmptyRecord = useIsEmptyRecord();
+
+  // 如果是关联字段的表单，要保证传递的 record 是正确的
+  if (assocFieldRecord) {
+    return (
+      <RecordProvider parent={record} record={assocFieldRecord}>
+        <BlockProvider {...props} block={'form'}>
+          <InternalFormBlockProvider {...props} />
+        </BlockProvider>
+      </RecordProvider>
+    );
+  }
+
   let detailFlag = false;
   if (isEmptyRecord) {
     detailFlag = true;
